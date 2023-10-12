@@ -12,7 +12,6 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
       </Routes>
-      ;
     </>
   );
 }

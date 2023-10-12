@@ -98,6 +98,8 @@ export const currentuser = async (req, res) => {
   try {
     const { token } = req.body;
 
+    // console.log(token);
+
     if (!token)
       return res
         .status(404)
@@ -115,20 +117,25 @@ export const currentuser = async (req, res) => {
 
     const user = await User.findById(userId);
 
-    if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "user not Found" });
+    // console.log(user);
+
+    if (user) {
+      const userObj = {
+        name: user.name,
+        email: user.email,
+        userId: user._id,
+        role: user.role,
+      };
+
+      console.log(userObj);
+
+      return res.status(200).json({
+        success: true,
+        currentuser: userObj,
+      });
     }
 
-    const userObj = {
-      name: user.name,
-      email: user.email,
-      _id: user._id,
-      role: user.role,
-    };
-
-    res.status(200).json({ success: true, user: userObj });
+    return res.status(404).json({ success: false, message: "user not found" });
   } catch (error) {
     return res.status(500).json({
       success: false,

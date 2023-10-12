@@ -23,7 +23,7 @@ const reducer = (state, action) => {
 };
 const BlogContext = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
+  // console.log(state);
 
   const login = (userData, token) => {
     localStorage.setItem("token", JSON.stringify(token));
@@ -45,9 +45,10 @@ const BlogContext = ({ children }) => {
       try {
         const response = await api.post("/currentuser", { token });
         if (response.data.success) {
+          // console.log(response?.data?.user, "currentuser");
           dispatch({
             type: "LOGIN",
-            payload: response?.data?.currentUser,
+            payload: response?.data?.currentuser,
           });
         }
       } catch (error) {
@@ -59,7 +60,7 @@ const BlogContext = ({ children }) => {
   }, []);
 
   return (
-    <MyContext.Provider value={{ login, logout, state }}>
+    <MyContext.Provider value={{ state, login, logout }}>
       {children}
     </MyContext.Provider>
   );

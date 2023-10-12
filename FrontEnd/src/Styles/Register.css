@@ -16,16 +16,16 @@
 }
 
 .regContainer {
-  width: 75%;
+  width: 60%;
   height: 80%;
-  opacity: 0.9;
+  opacity: 0.85;
   background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: saturate(180%) blur(10px);
+  backdrop-filter: saturate(180%) blur(2px);
   /* border: 1px solid red; */
 }
 
 .active {
-  background-color: #6ca8ad;
+  background-color: #5d8285;
 }
 
 .loginRegNavLink {
@@ -61,6 +61,7 @@
   width: 85%;
   margin: 0 auto;
   /* border: 1px solid blue; */
+  background-color: black;
 }
 
 .allInputs {
@@ -143,6 +144,9 @@ input::placeholder {
 .socialSections > p {
   color: white;
   text-align: center;
+}
+.socialSections > p:hover {
+  color: #67b0b7;
 }
 .socialIcons {
   width: 50%;

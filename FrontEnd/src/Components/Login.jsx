@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import {
   AiFillFacebook,
@@ -8,7 +8,7 @@ import {
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
 import { NavLink, useNavigate } from "react-router-dom";
-import api from "./ApiConfig";
+import api from "./ApiConfig/index";
 import { MyContext } from "./Context/BlogContext";
 
 const Login = () => {
@@ -19,7 +19,13 @@ const Login = () => {
   });
 
   const route = useNavigate();
-  const { login } = useContext(MyContext);
+  const { state, login } = useContext(MyContext);
+
+  useEffect(() => {
+    if (state?.currentuser) {
+      route("/");
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { value, name } = e.target;

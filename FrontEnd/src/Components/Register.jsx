@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../Styles/Register.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import api from "./ApiConfig/index";
 import { toast } from "react-hot-toast";
+import { MyContext } from "./Context/BlogContext";
 
 const Register = () => {
   const [visible, setVisible] = useState(false);
@@ -14,6 +15,14 @@ const Register = () => {
     role: "",
   });
   const route = useNavigate();
+
+  const { state } = useContext(MyContext);
+
+  useEffect(() => {
+    if (state?.currentuser) {
+      route("/");
+    }
+  }, []);
 
   // console.log(user);
 
