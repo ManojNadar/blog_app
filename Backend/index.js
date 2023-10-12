@@ -7,9 +7,8 @@ import { currentuser, login, register } from "./Controllers/UserController.js";
 import { addBlog } from "./Controllers/BlogController.js";
 import { admin } from "./Middlewares/AdminMiddleWare.js";
 
-dotenv.config();
-
 const app = express();
+dotenv.config();
 app.use(express.json({ extended: true }));
 app.use(morgan("dev"));
 app.use(cors());

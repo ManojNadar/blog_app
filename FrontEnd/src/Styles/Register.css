@@ -69,7 +69,7 @@
 .allInputs > input {
   width: 100%;
   margin: 5% 0;
-  background-color: transparent;
+  background-color: black;
   border: none;
   border-bottom: 1px solid #6ca8ad;
   outline: none;
@@ -92,6 +92,10 @@
   padding-left: 2%;
   font-size: 1.2em;
   border: 0.5px solid #6ca8ad;
+}
+.selectOptions > select > option {
+  background-color: #6ca8ad;
+  color: black;
 }
 
 .btnSignUp {

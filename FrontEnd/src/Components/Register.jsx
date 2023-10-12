@@ -1,25 +1,53 @@
 import React, { useState } from "react";
 import "../Styles/Register.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import api from "./ApiConfig/index";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
   const [visible, setVisible] = useState(false);
-
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
     role: "",
   });
+  const route = useNavigate();
+
+  // console.log(user);
 
   const handleChange = (e) => {
     const { value, name } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { name, email, password, role } = user;
+
+    if (name && email && password && role) {
+      try {
+        const response = await api.post("/register", { user });
+        if (response.data.success) {
+          toast.success(response.data.message);
+          setUser({
+            name: "",
+            email: "",
+            password: "",
+            role: "",
+          });
+          route("/login");
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.message);
+      }
+    } else {
+      toast.error("All Fields are mandatory");
+    }
   };
 
   const toggelEye = () => {
@@ -80,6 +108,8 @@ const Register = () => {
               <div className="selectOptions">
                 <select onChange={handleChange} name="role" value={user.role}>
                   <option>Select Role</option>
+                  <option value="Admin">Admin</option>
+                  <option value="User">User</option>
                 </select>
               </div>
               <button className="btnSignUp" type="submit">

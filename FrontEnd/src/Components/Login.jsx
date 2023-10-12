@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import {
   AiFillFacebook,
   AiFillInstagram,
@@ -6,7 +7,9 @@ import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import api from "./ApiConfig";
+import { MyContext } from "./Context/BlogContext";
 
 const Login = () => {
   const [visible, setVisible] = useState(false);
@@ -15,13 +18,42 @@ const Login = () => {
     password: "",
   });
 
+  const route = useNavigate();
+  const { login } = useContext(MyContext);
+
   const handleChange = (e) => {
     const { value, name } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const { email, password } = user;
+
+    if (email && password) {
+      try {
+        const response = await api.post("/login", { user });
+
+        if (response.data.success) {
+          toast.success(response.data.message);
+
+          const userData = response.data.userData;
+          const token = response.data.token;
+          login(userData, token);
+          setUser({
+            email: "",
+            password: "",
+          });
+          route("/");
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.message);
+      }
+    } else {
+      toast.error("All fields are mandatory");
+    }
   };
 
   const toggelEye = () => {
