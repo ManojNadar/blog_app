@@ -4,8 +4,13 @@ import Home from "./Components/Home";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Blogs from "./Components/Blogs";
+import { useContext } from "react";
+import { MyContext } from "./Components/Context/BlogContext";
 
 function App() {
+  const { state } = useContext(MyContext);
+  console.log(state);
+
   return (
     <>
       <Routes>

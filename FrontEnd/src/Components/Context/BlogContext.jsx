@@ -23,7 +23,7 @@ const reducer = (state, action) => {
 };
 const BlogContext = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
+  // console.log(state);
 
   const login = (userData, token) => {
     localStorage.setItem("blogtoken", JSON.stringify(token));
@@ -45,7 +45,7 @@ const BlogContext = ({ children }) => {
         const token = JSON.parse(localStorage.getItem("blogtoken"));
         const response = await api.post("/currentuser", { token });
         if (response.data.success) {
-          console.log(response?.data?.currentuser, "currentuser");
+          // console.log(response?.data?.currentuser, "currentuser");
           dispatch({
             type: "LOGIN",
             payload: response?.data?.currentuser,

@@ -13,12 +13,12 @@ const Home = () => {
 
   // console.log(state);
 
-  // useEffect(() => {
-  //   if (!state?.currentuser) {
-  //     toast.error("please login");
-  //     route("/login");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!state?.currentuser) {
+      // toast.error("please login");
+      route("/register");
+    }
+  }, []);
 
   const extractDropDown = () => {
     setDropDown(!dropDown);

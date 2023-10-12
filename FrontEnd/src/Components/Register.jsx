@@ -18,18 +18,18 @@ const Register = () => {
 
   const { state } = useContext(MyContext);
 
-  // useEffect(() => {
-  //   if (state?.currentuser?.name) {
-  //     route("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (state?.currentuser?.name) {
+      route("/");
+    }
+  }, []);
 
   // console.log(user);
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     const { value, name } = e.target;
     setUser({ ...user, [name]: value });
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
