@@ -18,11 +18,11 @@ const Register = () => {
 
   const { state } = useContext(MyContext);
 
-  useEffect(() => {
-    if (state?.currentuser) {
-      route("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (state?.currentuser?.name) {
+  //     route("/");
+  //   }
+  // }, []);
 
   // console.log(user);
 

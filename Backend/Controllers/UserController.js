@@ -127,7 +127,7 @@ export const currentuser = async (req, res) => {
         role: user.role,
       };
 
-      console.log(userObj);
+      // console.log(userObj);
 
       return res.status(200).json({
         success: true,
