@@ -3,16 +3,18 @@ import "../Styles/Home.css";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "./Context/BlogContext";
 import { toast } from "react-hot-toast";
+import { AiOutlineMenu } from "react-icons/ai";
+import { BsFillXSquareFill } from "react-icons/bs";
 
 const Home = () => {
   const [dropDown, setDropDown] = useState(false);
   const route = useNavigate();
   const { state, logout } = useContext(MyContext);
 
-  console.log(state);
+  // console.log(state);
 
   useEffect(() => {
-    if (!state?.currentuser) {
+    if (!state?.currentuser?.name) {
       toast.error("please login");
       route("/login");
     }
@@ -30,7 +32,7 @@ const Home = () => {
             {/* dropdown starts */}
 
             <div className="innerDropDownContainer">
-              <h2>MANOJ NADAR</h2>
+              <h2>{state?.currentuser?.name.toUpperCase()}</h2>
               <h2>ALL TRAVEL BLOGS</h2>
 
               {state?.currentuser?.role == "Admin" ? (
@@ -58,9 +60,13 @@ const Home = () => {
         ) : null}
         <div className="leftNav">
           {dropDown ? (
-            <h1 onClick={extractDropDown}>X</h1>
+            <h1 onClick={extractDropDown}>
+              <BsFillXSquareFill />
+            </h1>
           ) : (
-            <h1 onClick={extractDropDown}>=</h1>
+            <h1 onClick={extractDropDown}>
+              <AiOutlineMenu />
+            </h1>
           )}
         </div>
         <div className="mainHomeBody">

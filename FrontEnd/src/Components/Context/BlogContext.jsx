@@ -26,14 +26,14 @@ const BlogContext = ({ children }) => {
   // console.log(state);
 
   const login = (userData, token) => {
-    localStorage.setItem("token", JSON.stringify(token));
+    localStorage.setItem("blogtoken", JSON.stringify(token));
     dispatch({
       type: "LOGIN",
       payload: userData,
     });
   };
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("blogtoken");
     dispatch({
       type: "LOGOUT",
     });
@@ -41,7 +41,7 @@ const BlogContext = ({ children }) => {
 
   useEffect(() => {
     async function getCurrentUser() {
-      const token = JSON.parse(localStorage.getItem("token"));
+      const token = JSON.parse(localStorage.getItem("blogtoken"));
       try {
         const response = await api.post("/currentuser", { token });
         if (response.data.success) {

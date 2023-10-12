@@ -21,6 +21,8 @@ const Login = () => {
   const route = useNavigate();
   const { state, login } = useContext(MyContext);
 
+  // console.log(state?.currentuser);
+
   useEffect(() => {
     if (state?.currentuser) {
       route("/");
