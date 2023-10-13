@@ -19,7 +19,7 @@ const blogSchema = new Schema(
     },
     date: {
       type: Date,
-      default: Date.now,
+      default: new Date(),
       required: true,
     },
     comments: {

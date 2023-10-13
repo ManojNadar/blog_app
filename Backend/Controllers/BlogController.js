@@ -73,6 +73,39 @@ export const allBlogs = async (req, res) => {
   }
 };
 
+export const singleBlog = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(404).json({
+        success: false,
+        message: "id is required",
+      });
+    }
+
+    const findBlog = await Blog.findById(id);
+    console.log(findBlog);
+
+    if (findBlog) {
+      return res.status(200).json({
+        success: true,
+        singleBlog: findBlog,
+      });
+    }
+
+    return res.status(404).json({
+      success: false,
+      message: "not a valid id",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export const editBlog = async (req, res) => {
   try {
   } catch (error) {

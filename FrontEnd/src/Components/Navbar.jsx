@@ -42,9 +42,15 @@ const Navbar = () => {
             ) : null}
           </div>
 
-          <div className="logout" onClick={logout}>
-            <h1>LOGOUT</h1>
-          </div>
+          {state?.currentuser ? (
+            <div className="logout" onClick={logout}>
+              <h1>LOGOUT</h1>
+            </div>
+          ) : (
+            <div className="logout" onClick={() => route("/login")}>
+              <h1>LOGIN</h1>
+            </div>
+          )}
 
           {/* dropDown end */}
         </div>

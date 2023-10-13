@@ -3,9 +3,11 @@ import "../../Styles/BlogsCss/AllBlogs.css";
 import Navbar from "../Navbar";
 import { AiOutlineSearch } from "react-icons/ai";
 import api from "../ApiConfig";
+import { useNavigate } from "react-router-dom";
 
 const AllBlogs = () => {
   const [allBlogs, setAllBlogs] = useState([]);
+  const route = useNavigate();
 
   console.log(allBlogs);
   useEffect(() => {
@@ -84,7 +86,11 @@ const AllBlogs = () => {
           {allBlogs?.length ? (
             <div className="mainBlogSections">
               {allBlogs?.map((blog) => (
-                <div key={blog._id} className="singleBlogSection">
+                <div
+                  onClick={() => route(`/singleblog/${blog._id}`)}
+                  key={blog._id}
+                  className="singleBlogSection"
+                >
                   <div className="singleBlogImage">
                     <div className="innerImage">{blog.categories}</div>
                     <img src={blog.image} alt="" />

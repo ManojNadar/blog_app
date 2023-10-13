@@ -7,6 +7,7 @@ import { MyContext } from "./Components/Context/BlogContext";
 import Home from "./Components/Home";
 import AddBlog from "./Components/Blogs/AddBlog";
 import AllBlogs from "./Components/Blogs/AllBlogs";
+import SingleBlog from "./Components/Blogs/SingleBlog";
 
 function App() {
   const { state } = useContext(MyContext);
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/addblog" element={<AddBlog />} />
         <Route exact path="/allblogs" element={<AllBlogs />} />
+        <Route exact path="/singleblog/:id" element={<SingleBlog />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
       </Routes>
