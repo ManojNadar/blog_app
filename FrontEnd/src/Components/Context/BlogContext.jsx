@@ -43,13 +43,15 @@ const BlogContext = ({ children }) => {
     async function getCurrentUser() {
       try {
         const token = JSON.parse(localStorage.getItem("blogtoken"));
-        const response = await api.post("/currentuser", { token });
-        if (response.data.success) {
-          // console.log(response?.data?.currentuser, "currentuser");
-          dispatch({
-            type: "LOGIN",
-            payload: response?.data?.currentuser,
-          });
+        if (token) {
+          const response = await api.post("/currentuser", { token });
+          if (response.data.success) {
+            // console.log(response?.data?.currentuser, "currentuser");
+            dispatch({
+              type: "LOGIN",
+              payload: response?.data?.currentuser,
+            });
+          }
         }
       } catch (error) {
         console.log(error);

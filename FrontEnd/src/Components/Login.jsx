@@ -23,11 +23,11 @@ const Login = () => {
 
   // console.log(state?.currentuser);
 
-  // useEffect(() => {
-  //   if (state?.currentuser) {
-  //     route("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (state?.currentuser) {
+      route("/");
+    }
+  }, [state?.currentuser, route]);
 
   const handleChange = (e) => {
     const { value, name } = e.target;

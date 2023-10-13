@@ -4,7 +4,9 @@ import Blog from "../Models/BlogModel.js";
 
 export const addBlog = async (req, res) => {
   try {
-    const { title, image, description, categories } = req.body;
+    const { title, image, description, categories } = req.body.detail;
+
+    // console.log(title, image, description, categories);
 
     if (!title || !image || !description || !categories) {
       return res.status(404).json({
@@ -37,11 +39,20 @@ export const addBlog = async (req, res) => {
 
 export const allBlogs = async (req, res) => {
   try {
-    const { page, limit = 3 } = req.body;
+    // const { page, limit = 3 } = req.body;
 
-    const skipVal = parseInt((page - 1) * limit);
-    const limitVal = limit;
-    const all = await Blog.find({}).skip(skipVal).limit(limitVal).lean();
+    // const skipVal = parseInt((page - 1) * limit);
+    // const limitVal = limit;
+    // const all = await Blog.find({}).skip(skipVal).limit(limitVal).lean();
+
+    // if (all?.length) {
+    //   return res.status(200).json({
+    //     success: true,
+    //     allBlogs: all,
+    //   });
+    // }
+
+    const all = await Blog.find({});
 
     if (all?.length) {
       return res.status(200).json({

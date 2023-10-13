@@ -22,7 +22,7 @@ const Register = () => {
     if (state?.currentuser?.name) {
       route("/");
     }
-  }, []);
+  }, [state?.currentuser, route]);
 
   // console.log(user);
 
