@@ -6,19 +6,19 @@ import { toast } from "react-hot-toast";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsFillXSquareFill } from "react-icons/bs";
 
-const Home = () => {
+export const Home = () => {
   const [dropDown, setDropDown] = useState(false);
   const route = useNavigate();
   const { state, logout } = useContext(MyContext);
 
   // console.log(state);
 
-  useEffect(() => {
-    if (!state?.currentuser) {
-      // toast.error("please login");
-      route("/register");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!state?.currentuser) {
+  //     // toast.error("please login");
+  //     route("/register");
+  //   }
+  // }, []);
 
   const extractDropDown = () => {
     setDropDown(!dropDown);
@@ -58,6 +58,7 @@ const Home = () => {
             {/* dropDown end */}
           </div>
         ) : null}
+
         <div className="leftNav">
           {dropDown ? (
             <h1 onClick={extractDropDown}>
@@ -76,5 +77,3 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;
