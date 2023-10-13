@@ -54,8 +54,10 @@ const AddBlog = () => {
   };
 
   useEffect(() => {
-    if (!state?.currentuser && !state?.currentuser?.role == "Admin") {
-      route("/login");
+    if (state) {
+      if (state?.currentuser?.role != "Admin") {
+        route("/");
+      }
     }
   }, [state?.currentuser, route]);
   return (
@@ -111,7 +113,9 @@ const AddBlog = () => {
               ></textarea>
             </div>
             <div className="allBlogInputContainer">
-              <input type="submit" value="Submit" />
+              <button className="submitBtn" type="submit">
+                Submit
+              </button>
             </div>
           </form>
         </div>

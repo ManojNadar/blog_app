@@ -108,6 +108,68 @@ export const singleBlog = async (req, res) => {
 
 export const editBlog = async (req, res) => {
   try {
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(404).json({
+        success: false,
+        message: "id is required",
+      });
+    }
+
+    const findBlog = await Blog.findById(id);
+    console.log(findBlog);
+
+    if (findBlog) {
+      return res.status(200).json({
+        success: true,
+        editblog: findBlog,
+      });
+    }
+
+    return res.status(404).json({
+      success: false,
+      message: "not a valid id",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const updateBlog = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const { title, image, description, categories } = req.body.edit;
+
+    console.log(title, image, description, categories);
+    if (!title || !image || !description || !categories || !id) {
+      return res.status(404).json({
+        success: false,
+        message: "All fields are mandatory",
+      });
+    }
+
+    const findBlogUpdate = await Blog.findByIdAndUpdate(
+      id,
+      { title, image, description, categories },
+      { new: true }
+    );
+
+    if (findBlogUpdate) {
+      return res.status(200).json({
+        success: true,
+        message: "Updated Success",
+        updatedBlog: findBlogUpdate,
+      });
+    }
+
+    return res.status(404).json({
+      success: false,
+      message: "not updated",
+    });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -117,36 +179,29 @@ export const editBlog = async (req, res) => {
 };
 
 export const deleteBlog = async (req, res) => {
-  try {
-  } catch (error) {
-    return res.status(500).json({
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(404).json({
       success: false,
-      message: error.message,
+      message: "id is required",
     });
   }
-};
 
-export const searchBlog = async (req, res) => {
+  const findBlog = await Blog.findByIdAndDelete(id);
+
+  if (findBlog) {
+    return res.status(200).json({
+      success: true,
+      message: "Blog Deleted",
+    });
+  }
+
+  return res.status(404).json({
+    success: false,
+    message: "could not delete blog",
+  });
   try {
-    const { id } = req.body;
-
-    if (!id)
-      return res.status(404).json({
-        success: false,
-        message: "id is required",
-      });
-
-    const searchBlog = await Blog.find({ _id: id });
-
-    if (searchBlog?.length) {
-      return res.status(200).json({
-        success: true,
-        message: "blog Fetched",
-        searchBlog: searchBlog,
-      });
-    } else {
-      res.status(404).json({ success: false, message: "No Blog Found" });
-    }
   } catch (error) {
     return res.status(500).json({
       success: false,

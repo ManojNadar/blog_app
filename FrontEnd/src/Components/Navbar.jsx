@@ -24,6 +24,7 @@ const Navbar = () => {
             <h2 onClick={() => route("/")}>
               {state?.currentuser?.name.toUpperCase()}
             </h2>
+            <h2 onClick={() => route("/")}>Home</h2>
             <h2 onClick={() => route("/allblogs")}>ALL TRAVEL BLOGS</h2>
 
             {state?.currentuser?.role == "Admin" ? (

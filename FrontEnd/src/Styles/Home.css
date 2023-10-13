@@ -21,5 +21,26 @@
   align-items: center;
   font-size: 2em;
   color: white;
+  position: relative;
   /* background-color: red; */
+}
+.mainHomeBody > h1 {
+  position: absolute;
+  animation: welcome 1.5s ease-in;
+  animation-direction: normal;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  letter-spacing: 2px;
+}
+
+@keyframes welcome {
+  0% {
+    opacity: 0.3;
+    color: aqua;
+    top: 100px;
+  }
+
+  100% {
+    color: white;
+    top: 220px;
+  }
 }
