@@ -8,17 +8,19 @@ import { MyContext } from "../Context/BlogContext";
 import { AiFillHeart, AiOutlineDelete } from "react-icons/ai";
 import { BsFillBookmarkFill, BsFillXSquareFill } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
+import { currentuser } from "../../../../Backend/Controllers/UserController";
 
 const SingleBlog = () => {
   const [singleBlog, setSingleBlog] = useState({});
   const [edit, setEdit] = useState({});
   const [editModal, setEditModal] = useState(false);
   const { id } = useParams();
+  const [comment, setComment] = useState("");
   const { state } = useContext(MyContext);
   const route = useNavigate();
 
   // console.log(id, "params");
-  //   console.log(singleBlog);
+  // console.log(singleBlog);
   //  console.log(edit);
 
   useEffect(() => {
@@ -89,6 +91,26 @@ const SingleBlog = () => {
       }
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const sendComment = (e) => {
+    setComment(e.target.value);
+  };
+
+  const submitComment = async (id) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("blogtoken"));
+      const response = await api.post("/addcomment", { token, comment, id });
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setComment("");
+        setSingleBlog(response.data.afterCommentUpdate);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -164,7 +186,6 @@ const SingleBlog = () => {
                 </div>
               </div>
             )}
-
             {state?.currentuser?.role == "User" && (
               <div className="heartSaveIcons">
                 <div className="heart">
@@ -184,20 +205,36 @@ const SingleBlog = () => {
               <p>{singleBlog.description}</p>
               <span className="knowmore">Know More</span>
             </div>
+
             {state?.currentuser ? (
               <div className="addComment">
                 <h5>Add a Comment</h5>
-                <input placeholder="Add a comment" />
+                <div>
+                  <input
+                    placeholder="Add a comment"
+                    name="comment"
+                    value={comment}
+                    onChange={sendComment}
+                  />
+                  {comment ? (
+                    <button
+                      onClick={() => submitComment(singleBlog._id)}
+                      className="sendCommentBtn"
+                    >
+                      Send
+                    </button>
+                  ) : null}
+                </div>
 
                 <div className="commentsHeading">
-                  <h3>Comments</h3>
-
+                  <h5>Comments</h5>
                   <div className="comments">
-                    <h6>Manoj Nadar</h6>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Sunt, animi.
-                    </p>
+                    {singleBlog?.comments?.map((comment) => (
+                      <div key={comment.commentId}>
+                        <h6>Name : {comment.name.toUpperCase()}</h6>
+                        <p>comment : {comment.comment}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

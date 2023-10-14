@@ -117,10 +117,20 @@
 
 .addComment {
   color: white;
+  padding-left: 1%;
+  font-size: 1.2em;
+  position: relative;
+}
+.addComment > h5 {
+  padding-left: 3%;
+}
+.addComment > div {
+  color: white;
   padding-left: 2.5%;
   font-size: 1.2em;
+  position: relative;
 }
-.addComment > input {
+.addComment > div > input {
   margin-top: 1%;
   width: 95%;
   height: 80px;
@@ -130,6 +140,17 @@
   background-color: grey;
 }
 
+.sendCommentBtn {
+  position: absolute;
+  right: 8%;
+  top: 40%;
+  padding: 0.5% 2%;
+  border-radius: 5px;
+  border: none;
+  background-color: black;
+  color: white;
+}
+
 .commentsHeading {
   margin-top: 3%;
 }
@@ -137,13 +158,20 @@
 .comments {
   background-color: grey;
   width: 95%;
-  padding: 1% 2%;
   margin-top: 2%;
   margin-bottom: 2%;
+  padding: 1% 2%;
 }
-.comments > h6 {
+
+.comments > div {
+  padding: 1% 2%;
+  border: 2px solid black;
+  margin: 1% 0;
+}
+.comments > div > h6 {
   color: black;
   font-size: 1em;
+  letter-spacing: 1px;
 }
 
 .loginForComments {

@@ -12,7 +12,8 @@ import {
   singleBlog,
   updateBlog,
 } from "./Controllers/BlogController.js";
-import { admin } from "./Middlewares/AdminMiddleWare.js";
+import { admin, every } from "./Middlewares/AllMiddleWare.js";
+import { addComment } from "./Controllers/CommentController.js";
 
 const app = express();
 dotenv.config();
@@ -33,6 +34,10 @@ app.post("/singleblog", singleBlog);
 app.post("/editblog", admin, editBlog);
 app.post("/updateblog", admin, updateBlog);
 app.post("/deleteblog", admin, deleteBlog);
+
+// comments
+
+app.post("/addcomment", every, addComment);
 
 const PORT = 8000;
 
